@@ -16,3 +16,14 @@ http://myconfigserver.com:8087/qing-cloud-m1-config-client/dev/master
 http://myconfigserver.com:8087/qing-cloud-m1-config-client/dev
 
 配置文件缓存到本地：C:/Users/Qing/AppData/Local/Temp/，所以如果断网，就从本地读
+可通过spring.cloud.config.server.git.basedir来重新指定。但要注意别指定到工程目录，否则坑爹的覆盖掉工程
+
+判断配置中心是否健康：http://localhost:8087/health，显示内容为{"status":"UP"}
+
+配置中心要重启，才能拉取新的配置文件
+
+加上账号密码校验
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-security</artifactId>
+</dependency>

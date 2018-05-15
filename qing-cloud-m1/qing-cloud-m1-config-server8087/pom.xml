@@ -11,9 +11,16 @@
 	<artifactId>qing-cloud-m1-config-server8087</artifactId>
 
 	<dependencies>
+		<!-- config-server -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-config-server</artifactId>
+		</dependency>
+
+		<!-- security,加上账号密码，保证配置的安全 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
 
 		<!-- 热部署 -->
