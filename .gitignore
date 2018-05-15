@@ -1,0 +1,15 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+.project
+.settings
+.classpath
+*.registry
+*.lock
+
+target
+logs
+bin

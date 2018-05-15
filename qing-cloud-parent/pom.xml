@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.qing.cloud</groupId>
+	<artifactId>qing-cloud-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<properties>
+		<spring.boot.version>1.5.13.RELEASE</spring.boot.version>
+		<sprint.cloud.version>Dalston.SR5</sprint.cloud.version>
+		<druid.version>1.1.9</druid.version>
+		<mysql.version>8.0.11</mysql.version>
+		<mybatis.version>1.3.1</mybatis.version>
+		<json.version>1.2.46</json.version>
+		<guava.version>23.0</guava.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring.boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${sprint.cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+
+			<!-- 数据库 -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>druid</artifactId>
+				<version>${druid.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>mysql</groupId>
+				<artifactId>mysql-connector-java</artifactId>
+				<version>${mysql.version}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis.version}</version>
+			</dependency>
+			<!-- json -->
+			<dependency>
+				<groupId>com.alibaba</groupId>
+				<artifactId>fastjson</artifactId>
+				<version>${json.version}</version>
+			</dependency>
+			<!-- guava -->
+			<dependency>
+				<groupId>com.google.guava</groupId>
+				<artifactId>guava</artifactId>
+				<version>${guava.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+
+	<build>
+		<!-- 允许访问被过滤的资源文件 -->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<!-- springboot插件 -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- 编译插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			<!-- 将xml也打包插件 -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<delimiters> <!-- 结合前面的resources,设置允许访问的资源文件， 以$开头，以$结尾的允许访问-->
+						<delimit>$</delimit>
+					</delimiters>
+				</configuration>
+				<executions>
+					<execution>
+						<id>copy-xmls</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${basedir}/target/classes</outputDirectory>
+							<resources>
+								<resource>
+									<directory>${basedir}/src/main/java</directory>
+									<includes>
+										<include>**/*.xml</include>
+									</includes>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>

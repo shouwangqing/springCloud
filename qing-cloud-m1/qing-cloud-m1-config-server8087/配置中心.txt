@@ -1,0 +1,18 @@
+修改修改C:\Windows\System32\drivers\etc\hosts，来模拟外网
+127.0.0.1 myConfigServer.com
+
+访问方式格式：application为应用的服务名spring.application.name
+/{application}/{profile}[/{label}]
+/{application}-{profile}.yml
+/{label}/{application}-{profile}.yml
+/{application}-{profile}.properties
+/{label}/{application}-{profile}.properties
+
+文件，application-a.properties， 在顶层，默认label为master，可省
+访问方式：
+http://myconfigserver.com:8087/master/qing-cloud-m1-config-client-dev.properties
+http://myconfigserver.com:8087/qing-cloud-m1-config-client-dev.properties
+http://myconfigserver.com:8087/qing-cloud-m1-config-client/dev/master
+http://myconfigserver.com:8087/qing-cloud-m1-config-client/dev
+
+配置文件缓存到本地：C:/Users/Qing/AppData/Local/Temp/，所以如果断网，就从本地读

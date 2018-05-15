@@ -1,0 +1,15 @@
+注册中心的网页版客户端：http://localhost:7001/
+
+eureka遵循AP原则
+
+EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT. 
+RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.
+
+自我保护模式：
+1、某个微服务不可用时,eureka不会立刻清理，依旧会对该微服务的信息进行保存
+2、EurekaServer在一定时间(默认90s)没有收到某个微服务实例的心跳
+3、当网络分区故障发生，微服务与EurekaServer之间无法通信时
+
+禁用自我保护：eureka.server.enable-self-preservation=false
+
+

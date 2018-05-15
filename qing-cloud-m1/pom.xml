@@ -1,0 +1,29 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.qing.cloud</groupId>
+	<artifactId>qing-cloud</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	
+	<modules> 
+		<module>qing-cloud-m1-eureka-server7001</module>
+		<module>qing-cloud-m1-eureka-server7002</module>
+		<module>qing-cloud-m1-eureka-server7003</module>
+		<module>qing-cloud-m1-eureka-server7004</module>
+		
+		<module>qing-cloud-m1-api</module>
+		<module>qing-cloud-m1-provider8081</module>
+		<module>qing-cloud-m1-provider8082</module>
+		<module>qing-cloud-m1-provider8083</module>
+		<module>qing-cloud-m1-provider8084</module>
+		<module>qing-cloud-m1-hystrix-dashboard8085</module>
+		<module>qing-cloud-m1-zuul-gateway8086</module>
+		<module>qing-cloud-m1-config-server8087</module>
+		
+		<module>qing-cloud-m1-consumer80</module>
+		<module>qing-cloud-m1-consumer80-ribbon</module>
+		<module>qing-cloud-m1-consumer80-feign</module>
+	</modules>
+
+</project>

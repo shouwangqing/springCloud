@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qing.cloud.m1.provider.dao.DeptDao">
+
+	<insert id="add">
+		insert into dept
+		(dept_name,db_source)
+		values
+		(#{deptName},DATABASE())
+	</insert>
+
+	<select id="findById" resultType="Dept">
+		select *
+		from dept
+		where id=#{id}
+	</select>
+
+	<select id="findAll" resultType="Dept">
+		select *
+		from dept
+	</select>
+
+</mapper>

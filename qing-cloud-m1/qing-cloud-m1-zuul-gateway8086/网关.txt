@@ -1,0 +1,7 @@
+修改修改C:\Windows\System32\drivers\etc\hosts，来模拟外网
+127.0.0.1 myZuulGateway.com
+
+这样，就可默认通过路由http://myzuulgateway.com:8086/qing-cloud-m1-provider/dept/findAll来访问其他服务
+网关：myzuulgateway.com:8086
+服务名：qing-cloud-m1-provider,暴露了真实的服务名称，所以要做一下映射
+uri:/dept/findAll

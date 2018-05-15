@@ -1,0 +1,37 @@
+用7002,7003，7004做集群
+修改修改C:\Windows\System32\drivers\etc\hosts，来模拟多环境多域名
+127.0.0.1 eurekaServer7002.com
+127.0.0.1 eurekaServer7003.com
+127.0.0.1 eurekaServer7004.com
+
+登录集群客户端：
+http://eurekaserver7002.com:7002/，或http://eurekaserver7003.com:7003/，或http://eurekaserver7004.com:7004/
+
+客户端（提供者/消费者）配置：
+
+#配置注册中心所在位置(单机版)
+#eureka.client.serviceUrl.defaultZone=http://localhost:7001/eureka/
+
+#配置注册中心所在位置(集群版)
+eureka.client.serviceUrl.defaultZone=http://eurekaServer7002.com:7002/eureka/,http://eurekaServer7003.com:7003/eureka/,http://eurekaServer7004.com:7004/eureka/
+
+
+
+数据库：
+A(atomicity)原子性
+C(consistency)一致性,
+I(isolation)隔离性,
+D(durability)持久性
+
+
+分布式系统(只能满足其中两种)：
+C(consistency)一致性,
+A(availability)可用性,
+P(partition tolerance)分区容错性
+
+rdbms遵守CA
+couchDb,cassandra,dynamodb,riak,eureka遵守A,P
+mongoDb,hbase,redis,zookeeper遵守C,P
+
+zookeeper追求一致性。master节点宕机，重新选举master节点时，其他节点都不可用
+eureka追求高可用，其中一节点宕机，择切换到其他节点。因为自我保护措施，保留了断开了连接的服务信息，所以得到的信息不是最新的
