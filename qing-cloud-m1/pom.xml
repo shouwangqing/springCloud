@@ -20,6 +20,7 @@
 		<module>qing-cloud-m1-hystrix-dashboard8085</module>
 		<module>qing-cloud-m1-zuul-gateway8086</module>
 		<module>qing-cloud-m1-config-server8087</module>
+		<module>qing-cloud-m1-config-client8088</module>
 		
 		<module>qing-cloud-m1-consumer80</module>
 		<module>qing-cloud-m1-consumer80-ribbon</module>
