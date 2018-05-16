@@ -1,0 +1,13 @@
+动态刷新配置：
+1、加入依赖
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
+
+2、#取消安全验证
+management.security.enabled=false
+
+3、修改配置内容，git提交
+
+4、客户端刷新，注意是post请求，http://localhost:8090/refresh，这样就可将配置文件拉取下来

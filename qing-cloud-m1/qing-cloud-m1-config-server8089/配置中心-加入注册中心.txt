@@ -1,0 +1,3 @@
+#服务名
+spring.application.name=qing-cloud-m1-config-server
+竟然要加入bootstrap.properties，否则客户端找不到，坑。。。

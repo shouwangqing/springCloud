@@ -8,7 +8,7 @@
 		<artifactId>qing-cloud-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>qing-cloud-m1-config-server8087</artifactId>
+	<artifactId>qing-cloud-m1-config-server8089</artifactId>
 
 	<dependencies>
 		<!-- config-server -->
@@ -21,6 +21,18 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- eureka-client -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		
+		<!--actuator，展示info，error信息  -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
 		<!-- 热部署 -->
