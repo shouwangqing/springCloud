@@ -67,11 +67,21 @@
 
 
 	<build>
-		<!-- 允许访问被过滤的资源文件 -->
+		<!-- 允许访问被过滤的资源文件,actuator设置info时用到 -->
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.keystore</exclude> <!-- 设置非对称加密秘钥对，否则其路径会读取错误 -->
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.keystore</include>
+				</includes>
 			</resource>
 		</resources>
 		<plugins>

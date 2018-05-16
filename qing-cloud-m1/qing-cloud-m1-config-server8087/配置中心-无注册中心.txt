@@ -1,0 +1,94 @@
+修改修改C:\Windows\System32\drivers\etc\hosts，来模拟外网
+127.0.0.1 myConfigServer.com
+
+访问方式格式：application为应用的服务名spring.application.name
+/{application}/{profile}[/{label}]
+/{application}-{profile}.yml
+/{label}/{application}-{profile}.yml
+/{application}-{profile}.properties
+/{label}/{application}-{profile}.properties
+
+文件，application-a.properties， 在顶层，默认label为master，可省
+访问方式：
+http://myconfigserver.com:8087/master/qing-cloud-m1-config-client-dev.properties
+http://myconfigserver.com:8087/qing-cloud-m1-config-client-dev.properties
+http://myconfigserver.com:8087/qing-cloud-m1-config-client/dev/master
+http://myconfigserver.com:8087/qing-cloud-m1-config-client/dev
+
+配置文件缓存到本地：C:/Users/Qing/AppData/Local/Temp/，所以如果断网，就从本地读
+可通过spring.cloud.config.server.git.basedir来重新指定。但要注意别指定到工程目录，否则坑爹的覆盖掉工程
+
+判断配置中心是否健康：http://localhost:8087/health，显示内容为{"status":"UP"}
+
+配置中心要重启，才能拉取新的配置文件
+
+
+
+加上账号密码校验
+<dependency>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-security</artifactId>
+</dependency>
+指定账号密码，默认为user,密码在日志中打印出来
+security.user.name=admin
+security.user.password=admin
+客户端对应的是，但客户端不用加入依赖，否则又等于给客户端进行了加密
+spring.cloud.config.username=admin
+spring.cloud.config.password=admin
+
+
+对称加密：
+1、加解密，注意jdk8已经自带了无限秘钥长度jar包
+2、秘钥encrypt.key=qing放在bootstrap.properties中，客户端也要放入秘钥encrypt.key=qing，坑货
+3、http://localhost:8087/encrypt/status 查看加密功能的状态
+4、在postman工具中测试加密（要先屏蔽前面的账号密码校验），http://localhost:8087/encrypt，参数为body的raw的值qing。加密结果为：a5ad40deb6eed874a63236ed07f47929a144ec2a2afb415f2541729a9d177e00
+5、解密，http://localhost:8087/decrypt，参数为body的raw
+6、将加好密的字符串提交到github，客户端就可进行相应的解密了。秘钥格式：{cipher}a5ad40deb6eed874a63236ed07f47929a144ec2a2afb415f2541729a9d177e00
+
+----------------------------------------------------------------------------------
+
+非对称加密：
+1、在cmd中生成秘钥对，keytool -genkeypair -alias myKey -keyalg RSA -dname "CN=shouwang,OU=java,O=jz,L=gz,ST=gd,C=CN" -keystore config-server.keystore -keypass secret123456 -storepass pwd123456
+	-alias， 指定别名
+	-keyalg， 指定RSA算法
+	
+	CN，您的名字与姓氏
+	OU，您的组织单位名称
+	O，您的组织名称
+	L，您所在的城市/区域名称
+	ST，您所在的省/市/自治区
+	C，该单位的双字母国家/地区代码
+	
+	-keystore，指定存储文件名称
+	-keypass，秘钥库口令，对应encrypt.key-store.secret
+	-storepass，秘钥口令，对应encrypt.key-store.password
+
+2、生成命令也可以用keytool -genkeypair -alias myKey -keyalg RSA -keystore config-server.keystore
+
+3、在bootstrap.properties中加入
+	encrypt.key-store.location=config-server.keystore
+	encrypt.key-store.alias=myKey
+	encrypt.key-store.password=pwd123456
+	encrypt.key-store.secret=secret123456
+
+4、在pom中加入
+<resources>
+	<resource>
+		<directory>src/main/resources</directory>
+		<filtering>true</filtering>
+		<excludes>
+			<exclude>**/*.keystore</exclude> <!-- 设置非对称加密秘钥对，否则其路径会读取错误 -->
+		</excludes>
+	</resource>
+	<resource>
+		<directory>src/main/resources</directory>
+		<filtering>false</filtering>
+		<includes>
+			<include>**/*.keystore</include>
+		</includes>
+	</resource>
+</resources>
+
+5、测试加密，解密如同上述的对称加密。另外提交到github上时都要加上前缀{cipher}
+
+
