@@ -23,6 +23,7 @@
 		<module>qing-cloud-m1-config-client8088</module>
 		<module>qing-cloud-m1-config-server8089</module>
 		<module>qing-cloud-m1-config-client8090</module>
+		<module>qing-cloud-m1-bus-rabbitmq8091</module>
 		
 		<module>qing-cloud-m1-consumer80</module>
 		<module>qing-cloud-m1-consumer80-ribbon</module>
