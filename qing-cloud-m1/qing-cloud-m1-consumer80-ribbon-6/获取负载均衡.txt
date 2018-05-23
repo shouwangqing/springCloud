@@ -1,0 +1,11 @@
+1、无需
+@Bean
+@LoadBalanced  //ribbon的客户端负载均衡
+public RestTemplate restTemplate() {
+	return new RestTemplate();
+}
+
+2、直接获取负载均衡，然后进行http请求
+@Autowired
+private LoadBalancerClient loadBalancerClient;
+

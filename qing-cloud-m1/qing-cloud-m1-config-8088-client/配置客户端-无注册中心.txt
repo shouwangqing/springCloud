@@ -1,0 +1,6 @@
+bootstrap.properties，系统级：负责从外部资源加载配置属性并解析配置。获取到的配置不会被本地覆盖。共享一个从外部获取的Environment
+
+application.properties，用户级。共享一个从外部获取的Environment
+
+bootstrap.properties主要存放spring.application.name和spring.cloud.config.uri
+所以若远程的有，则以远程的为准

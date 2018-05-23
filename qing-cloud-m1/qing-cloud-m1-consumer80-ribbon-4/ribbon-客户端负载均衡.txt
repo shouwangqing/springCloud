@@ -1,0 +1,61 @@
+消费者：
+1、不再是通过http://localhost:8081/dept/findAll来访问提供者，
+       而是通过http://qing-cloud-m1-provider/dept/findAll来访问服务
+2、在RestTemplate上加@LoadBalanced
+	@Bean
+	@LoadBalanced  //ribbon的客户端负载均衡
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+  
+  
+       
+ribbon的负载均衡算法：
+RoundRobinRule:轮询(默认)
+RandomRule：随机
+AvailabilityFilteringRule：先过滤掉由于多次访问故障而处于断路器跳闸状态的服务，以及并发连接数超过阈值的服务。然后对剩余的服务按照轮询方式访问
+WeightedResponseTimeRule：根据平均响应时间计算所有服务的权重，响应越快服务的权重就越大，被选中的可能性就越大。但刚开始启动时是利用了RoundRobinRule
+RetryRule：如果获取服务失败，则在指定时间内进行重试，获取可用服务
+BestAvailableRule：先过滤掉由于多次访问故障而处于断路器跳闸状态的服务，然后选择并发量小的服务
+ZoneAvoidanceRule：复合判断server所在区域的性能和可用性，然后选择相应的服务器
+
+自定义负载均衡算法：
+方法一、
+	自定义bean,返回内置负载均衡算法
+	@Bean
+	public IRule myRule() {
+		return new RandomRule();
+	}
+
+方法二、
+	1、在启动器上加注解,服务要写成大写?? 
+	@RibbonClient(name="qing-cloud-m1-provider",configuration= {MyRibbonBalanceRule.class})
+	
+	2、自定义负载均衡算法，但不能与启动器同包，或在其子包下。否则对其他服务都起作用
+	@Configuration
+	public class MyRibbonBalanceRule {
+		@Bean
+		public IRule myRule() {
+			return new MyRandomRule();
+		}
+	}
+	
+方法三、
+	1、如果自定义负载均衡算法，写在启动器同包或子包下，则通过自定义注解的方式来排除
+	2、在启动器加入
+	@RibbonClient(name="qing-cloud-m1-provider",configuration= MyRibbonBalanceRule.class)
+	@ComponentScan(excludeFilters= {@ComponentScan.Filter(type=FilterType.ANNOTATION,value=MyExclude.class)})
+	3、自定义负载均衡算法
+	@Configuration
+	public class MyRibbonBalanceRule {
+		@Bean
+		public IRule myRule() {
+			return new MyRandomRule();
+		}
+	}
+
+
+方法四、
+   1、通过配置文件来指定哪个服务引用哪种负载均衡算法
+   2、#自定义负载均衡算法
+   qing-cloud-m1-provider.ribbon.NFLoadBalancerRuleClassName=com.qing.cloud.m1.ribbon.MyRibbonBalanceRule

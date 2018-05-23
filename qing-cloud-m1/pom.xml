@@ -15,19 +15,30 @@
 		<module>qing-cloud-m1-api</module>
 		<module>qing-cloud-m1-provider8081</module>
 		<module>qing-cloud-m1-provider8082</module>
+		<module>qing-cloud-m1-provider8082-config</module>
 		<module>qing-cloud-m1-provider8083</module>
 		<module>qing-cloud-m1-provider8084</module>
 		<module>qing-cloud-m1-hystrix-dashboard8085</module>
 		<module>qing-cloud-m1-zuul-gateway8086</module>
-		<module>qing-cloud-m1-config-server8087</module>
-		<module>qing-cloud-m1-config-client8088</module>
-		<module>qing-cloud-m1-config-server8089</module>
-		<module>qing-cloud-m1-config-client8090</module>
-		<module>qing-cloud-m1-bus-rabbitmq8091</module>
+		
+		<module>qing-cloud-m1-config-8087-server</module>
+		<module>qing-cloud-m1-config-8088-client</module>
+		
+		<module>qing-cloud-m1-config-8089-server</module>
+		<module>qing-cloud-m1-config-8090-client</module>
+		<module>qing-cloud-m1-config-8091-server</module>
+		<module>qing-cloud-m1-config-8092-client</module>
+		<module>qing-cloud-m1-config-8093-rabbitmq</module>
 		
 		<module>qing-cloud-m1-consumer80</module>
-		<module>qing-cloud-m1-consumer80-ribbon</module>
+		<module>qing-cloud-m1-consumer80-ribbon-1</module>
+		<module>qing-cloud-m1-consumer80-ribbon-2</module>
+		<module>qing-cloud-m1-consumer80-ribbon-3</module>
+		<module>qing-cloud-m1-consumer80-ribbon-4</module>
+		<module>qing-cloud-m1-consumer80-ribbon-5</module>
+		<module>qing-cloud-m1-consumer80-ribbon-6</module>
 		<module>qing-cloud-m1-consumer80-feign</module>
+		<module>qing-cloud-m1-consumer80-feign-config</module>
 	</modules>
 
 </project>

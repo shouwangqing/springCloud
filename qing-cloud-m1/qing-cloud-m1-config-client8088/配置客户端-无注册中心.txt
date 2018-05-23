@@ -1,2 +1,0 @@
-bootstrap.properties，系统级
-application.properties，用户级

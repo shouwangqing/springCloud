@@ -1,0 +1,4 @@
+提供者做成集群8082,8083,8084,
+提供同一个服务，spring.application.name=qing-cloud-m1-provider
+服务实例不同，eureka.instance.instance-id=qing-cloud-m1-provider-8081
+每个实例对应的数据库：springcloudguigu-2,springcloudguigu-3,springcloudguigu-4,

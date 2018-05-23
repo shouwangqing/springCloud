@@ -1,0 +1,5 @@
+
+#关闭eureka,指定某个服务实例
+ribbon.eureka.enabled=false
+qing-cloud-m1-provider.ribbon.listOfServers=localhost:8083
+
